@@ -49,11 +49,10 @@ ident_3 = And(f(d,e)==d,f(e,d)==d)
 inv_1 = And(f(e,g(e))==e,f(g(e),e)==e)
 inv_2 = And(f(c,g(c))==e,f(g(c),c)==e)
 inv_3 = And(f(d,g(d))==e,f(g(d),d)==e)
-#identity is unique
-#unique = ForAll(x,And((f(x,c)==x),f(c,x)==x,Not(e=c)))
-uniq_1 = And((f(e,c)==e),f(c,e)==e,Not(e==c))
-uniq_2  = And((f(c,c)==c),f(c,c)==c,Not(e==c))
-uniq_3  = And((f(d,c)==d),f(c,d)==d,Not(e==c))
+#inverse is unique for an element
+#unique = f(c,d)==e and f(d,c)=e and not(d=g(c))
+uniq = And(f(c,d)==e,f(d,c)==e,Not(d==g(c)))
+
 
 #solver
 solver = Solver()
@@ -93,12 +92,11 @@ solver.add(inv_1)
 solver.add(inv_2)
 solver.add(inv_3)
 
-solver.add(uniq_1)
-solver.add(uniq_2)
-solver.add(uniq_3)
+solver.add(uniq)
 
 
 if solver.check()== unsat:
     print('The obtained formula is unsatisfiable')
 else:
     print('The obtained formula is satisfiable')
+    print(solver.model())
