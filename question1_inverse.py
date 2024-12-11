@@ -1,4 +1,4 @@
-#identity is unique
+#inverse is unique for an element
 from z3 import *
 
 c = Int('c')
